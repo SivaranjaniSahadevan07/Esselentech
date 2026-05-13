@@ -1,0 +1,11 @@
+- [x] Initialize complete Next.js project
+- [x] Configure Tailwind
+- [x] Configure MongoDB connection
+- [x] Configure Cloudinary
+- [x] Create Project model
+- [x] Create Types
+- [x] Create API routes
+- [x] Create masonry homepage UI
+- [x] Create project detail page
+- [x] Create admin dashboard
+- [x] Ensure project runs successfully
