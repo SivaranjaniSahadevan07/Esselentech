@@ -18,7 +18,7 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/projects');
       const data = await res.json();
-      setProjects(data.projects);
+      setProjects(data);
     } catch (error) {
       console.error('Failed to fetch projects:', error);
     } finally {
