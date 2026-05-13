@@ -7,14 +7,14 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
   await dbConnect();
-  const project = await Project.findOne({ slug: params.slug });
+  const project = await Project.findOne({ slug });
   if (!project) return { title: 'Project Not Found' };
-  
   return {
     title: `${project.title} | Portfolio`,
     description: project.description,
@@ -22,8 +22,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
+  const { slug } = await params;
   await dbConnect();
-  const project = await Project.findOne({ slug: params.slug });
+  const project = await Project.findOne({ slug });
 
   if (!project) {
     notFound();
