@@ -7,12 +7,19 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    await dbConnect();
     const { id } = await context.params;
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+    }
+    
+    await dbConnect();
     const project = await Project.findById(id);
+    
     if (!project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
+    
     return NextResponse.json(project);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -24,13 +31,15 @@ export async function PUT(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    await dbConnect();
     const { id } = await context.params;
+    await dbConnect();
     const data = await req.json();
     const project = await Project.findByIdAndUpdate(id, data, { new: true });
+    
     if (!project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
+    
     return NextResponse.json(project);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -42,12 +51,14 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    await dbConnect();
     const { id } = await context.params;
+    await dbConnect();
     const project = await Project.findByIdAndDelete(id);
+    
     if (!project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
+    
     return NextResponse.json({ message: 'Project deleted' });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
