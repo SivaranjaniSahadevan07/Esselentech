@@ -31,9 +31,9 @@ const MediaCard = ({ project }: MediaCardProps) => {
             className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
-          
+
           {/* Hover Overlay */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+          <div className="absolute inset-0 bg-black/40 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
             <h3 className="text-white font-bold text-lg leading-tight">{project.title}</h3>
             <p className="text-white/80 text-sm">{project.category}</p>
           </div>
